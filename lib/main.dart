@@ -8,10 +8,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: RandomWords(),
-      theme: new ThemeData.dark()
-    );
+        title: 'Welcome to Flutter',
+        home: RandomWords(),
+        theme: new ThemeData.dark());
   }
 }
 
@@ -20,7 +19,6 @@ class RandomWords extends StatefulWidget {
   State<StatefulWidget> createState() {
     return new RandomWordsState();
   }
-
 }
 
 class RandomWordsState extends State<RandomWords> {
@@ -36,7 +34,7 @@ class RandomWordsState extends State<RandomWords> {
           if (i.isOdd) {
             return Divider();
           }
-          final index = i ~/2;
+          final index = i ~/ 2;
           if (index >= _suggestions.length) {
             _suggestions.addAll(generateWordPairs().take(10));
           }
@@ -46,15 +44,19 @@ class RandomWordsState extends State<RandomWords> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold (
+    return new Scaffold(
       appBar: new AppBar(
         title: new Text('Startup Name Generator'),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved,)
+          IconButton(
+            icon: Icon(Icons.list),
+            onPressed: _pushSaved,
+          )
         ],
       ),
       body: _buildSuggestions(),
-    );  }
+    );
+  }
 
   Widget _buildRow(WordPair pair) {
     var contains = _saved.contains(pair);
@@ -71,7 +73,7 @@ class RandomWordsState extends State<RandomWords> {
         setState(() {
           if (contains) {
             _saved.remove(pair);
-          } else{
+          } else {
             _saved.add(pair);
           }
         });
@@ -85,7 +87,7 @@ class RandomWordsState extends State<RandomWords> {
       new MaterialPageRoute(
         builder: (context) {
           final tiles = _saved.map(
-                (pair) {
+            (pair) {
               return new ListTile(
                 title: new Text(
                   pair.asPascalCase,
@@ -94,24 +96,20 @@ class RandomWordsState extends State<RandomWords> {
               );
             },
           );
-          final divided = ListTile
-              .divideTiles(
+          final divided = ListTile.divideTiles(
             context: context,
             tiles: tiles,
-          )
-              .toList();
+          ).toList();
           return new Scaffold(
               appBar: new AppBar(
-              title: new Text('Saved Suggestions'),
-          ),
-          body: new ListView(children: divided),
+                title: new Text('Saved Suggestions'),
+              ),
+              body: new ListView(children: divided));
         },
       ),
     );
   }
 }
-
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
